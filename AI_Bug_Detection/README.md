@@ -55,6 +55,3 @@ Run unit tests:
 ```bash
 python -m unittest discover tests
 ```
-
-## License
-MIT
