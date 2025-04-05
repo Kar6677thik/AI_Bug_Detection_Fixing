@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Bug Detection System</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 text-white flex flex-col items-center justify-center min-h-screen px-4 py-8">
+  <div class="w-full max-w-4xl bg-gray-800 rounded-xl shadow-2xl overflow-hidden border border-gray-700">
+    <!-- Header -->
+    <div class="bg-gray-700 p-5 border-b border-gray-600">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <i class="fas fa-bug text-blue-400 text-2xl mr-3"></i>
+          <h1 class="text-3xl font-bold text-blue-400">AI Bug Detection System</h1>
+        </div>
+        <div class="flex space-x-2">
+          <div class="w-3 h-3 rounded-full bg-red-500"></div>
+          <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div class="w-3 h-3 rounded-full bg-green-500"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="p-6">
+      <div class="mb-6">
+        <div class="flex justify-between items-center mb-2">
+          <div class="flex items-center">
+            <i class="fas fa-code text-gray-400 mr-2"></i>
+            <label for="codeInput" class="text-gray-300 font-semibold">Source Code</label>
+          </div>
+          <div class="text-xs text-gray-400 bg-gray-700 px-2 py-1 rounded">
+            <span id="lineCount">0</span> lines
+          </div>
+        </div>
+        <div class="relative">
+          <textarea id="codeInput"
+            class="w-full bg-gray-900 text-green-400 font-mono rounded-lg resize-none p-4 border border-gray-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none h-48"
+            placeholder="Paste your code here..."></textarea>
+          <button id="clearButton" class="absolute top-2 right-2 text-gray-500 hover:text-gray-300">
+            <i class="fas fa-times-circle"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between mb-6">
+        <div class="flex space-x-3">
+          <button id="analyzeButton"
+            class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2 rounded-lg transition duration-300 flex items-center">
+            <i class="fas fa-search-plus mr-2"></i>
+            Analyze Code
+          </button>
+          <button id="downloadButton"
+            class="bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium px-4 py-2 rounded-lg transition duration-300 flex items-center">
+            <i class="fas fa-download mr-2"></i>
+            Export Results
+          </button>
+        </div>
+        <div class="hidden sm:flex items-center space-x-4">
+          <div class="flex items-center">
+            <span class="w-2 h-2 rounded-full bg-red-500 mr-1"></span>
+            <span class="text-xs text-gray-400">Critical</span>
+          </div>
+          <div class="flex items-center">
+            <span class="w-2 h-2 rounded-full bg-yellow-500 mr-1"></span>
+            <span class="text-xs text-gray-400">Warning</span>
+          </div>
+          <div class="flex items-center">
+            <span class="w-2 h-2 rounded-full bg-blue-500 mr-1"></span>
+            <span class="text-xs text-gray-400">Info</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Results Section -->
+      <div>
+        <div class="flex justify-between items-center mb-2">
+          <div class="flex items-center">
+            <i class="fas fa-clipboard-list text-gray-400 mr-2"></i>
+            <h3 class="text-gray-300 font-semibold">Analysis Results</h3>
+          </div>
+          <div id="statusBadge" class="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded-full">
+            Ready
+          </div>
+        </div>
+        <div id="results"
+          class="w-full bg-gray-900 rounded-lg p-4 border border-gray-700 min-h-[120px] max-h-[300px] overflow-auto break-words whitespace-pre-wrap font-mono text-sm">
+          <div class="flex items-center text-gray-400">
+            <i class="fas fa-info-circle mr-2"></i>
+            <p>Analysis results will appear here...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="bg-gray-700 p-3 border-t border-gray-600">
+      <div class="flex justify-between items-center">
+        <div class="text-xs text-gray-400">
+          <i class="fas fa-clock mr-1"></i>
+          <span id="timestamp">Last scan: Never</span>
+        </div>
+        <div class="text-xs text-gray-400">
+          <span id="scanStats">0 issues detected</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+  <script>
+    // Some minimal JS to handle UI elements
+    document.getElementById('clearButton').addEventListener('click', () => {
+      document.getElementById('codeInput').value = '';
+      document.getElementById('lineCount').textContent = '0';
+    });
+    
+    document.getElementById('codeInput').addEventListener('input', (e) => {
+      const lines = e.target.value.split('\n').length;
+      document.getElementById('lineCount').textContent = lines;
+    });
+    
+    document.getElementById('analyzeButton').addEventListener('click', () => {
+      // This is a placeholder - the actual functionality should be in main.js
+      document.getElementById('statusBadge').textContent = 'Processing...';
+      document.getElementById('statusBadge').className = 'bg-blue-600 text-white text-xs px-2 py-1 rounded-full';
+      
+      // This is purely for visual effect - the real functionality should be in main.js
+      setTimeout(() => {
+        document.getElementById('statusBadge').textContent = 'Completed';
+        document.getElementById('statusBadge').className = 'bg-green-600 text-white text-xs px-2 py-1 rounded-full';
+        document.getElementById('timestamp').textContent = 'Last scan: ' + new Date().toLocaleTimeString();
+      }, 1500);
+    });
+  </script>
+</body>
+</html>
