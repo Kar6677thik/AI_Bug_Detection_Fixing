@@ -4,7 +4,7 @@ An offline AI-powered system for detecting and fixing bugs in source code, optim
 
 ## Features
 
-- Detects functional bugs in Python and JavaScript code
+- Detects functional bugs in Python code
 - Suggests fixes with confidence scores
 - Works offline without requiring cloud services
 - Optimized for low-end machines through model quantization
